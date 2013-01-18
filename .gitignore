@@ -1,0 +1,5 @@
+*.pro.user
+moc_*
+*.o
+object_script.*
+._*
