@@ -48,7 +48,7 @@ public:
     int pomodoroLength() const { return mPomodoroLength; }
     bool windowVisible() const { return mWindowVisible; }
     Q_INVOKABLE void startPomodoro();
-    Q_INVOKABLE void interuptPomodoro();
+    Q_INVOKABLE void interruptPomodoro();
     bool alarmFileSet() const;
     
 signals:

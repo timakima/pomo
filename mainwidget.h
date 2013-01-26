@@ -42,6 +42,7 @@ private slots:
     void startClicked();
     void resetClicked();
     void pomodoroEnded();
+    void voidPomodoro();
 
 private:
     QVBoxLayout *pMainLayout;
@@ -49,6 +50,7 @@ private:
     QLabel *pDurationLabel;
     QPushButton *pStartButton;
     QPushButton *pResetAlarmButton;
+    QPushButton *pVoidButton;
     QLabel *pElapsedTimeLabel;
     QHBoxLayout *pSliderLayout;
 };

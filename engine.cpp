@@ -88,9 +88,12 @@ void Engine::startPomodoro()
     settings.setValue("pomodoro/duration", pomodoroLength());
 }
 
-void Engine::interuptPomodoro()
+void Engine::interruptPomodoro()
 {
-    qDebug() << __PRETTY_FUNCTION__ << "not implemented";
+    setElapsed("0min 0sec");
+    setActive(false);
+    pTimer->stop();
+
 }
 
 bool Engine::alarmFileSet() const

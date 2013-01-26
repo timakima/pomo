@@ -25,6 +25,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QDebug>
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent)
@@ -49,11 +50,15 @@ MainWidget::MainWidget(QWidget *parent) :
     pResetAlarmButton = new QPushButton(tr("shut up"));
     pResetAlarmButton->setEnabled(false);
 
+    pVoidButton = new QPushButton(tr("Void pomodoro"));
+    pVoidButton->setEnabled(false);
+
     pMainLayout = new QVBoxLayout;
     pMainLayout->addWidget(pElapsedTimeLabel);
     pMainLayout->addLayout(pSliderLayout);
     pMainLayout->addWidget(pStartButton);
     pMainLayout->addWidget(pResetAlarmButton);
+    pMainLayout->addWidget(pVoidButton);
 
     setLayout(pMainLayout);
 
@@ -69,6 +74,7 @@ MainWidget::MainWidget(QWidget *parent) :
             pDurationLabel, SLOT(setNum(int)));
     connect(Engine::instance(), SIGNAL(pomodoroEnded()),
             this, SLOT(pomodoroEnded()));
+    connect(pVoidButton, SIGNAL(clicked()), this, SLOT(voidPomodoro()));
 }
 
 void MainWidget::startClicked()
@@ -76,6 +82,7 @@ void MainWidget::startClicked()
     if(!Engine::instance()->isActive()) {
         Engine::instance()->startPomodoro();
         pDurationSlider->setDisabled(true);
+        pVoidButton->setEnabled(true);
     }
 }
 
@@ -88,4 +95,13 @@ void MainWidget::pomodoroEnded()
 {
     pResetAlarmButton->setEnabled(true);
     pDurationSlider->setEnabled(true);
+}
+
+void MainWidget::voidPomodoro() {
+    if(Engine::instance()->isActive()) {
+        Engine::instance()->interruptPomodoro();
+        pDurationSlider->setDisabled(false);
+        pVoidButton->setEnabled(false);
+        pStartButton->setEnabled(true);
+    }
 }
